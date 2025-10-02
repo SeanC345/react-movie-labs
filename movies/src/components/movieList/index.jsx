@@ -4,21 +4,11 @@ import Grid from "@mui/material/Grid";
 
 const MovieList = (props) => {
   let movieCards = props.movies.map((m) => (
-    <Grid
-      item
-      key={m.id}
-      xs={12}
-      sm={6}
-      md={4}
-      lg={3}
-      xl={2}
-      sx={{ padding: "20px" }}
-    >
-      <Movie movie={m} />
+    <Grid key={m.id} size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} sx={{padding: "20px"}}>
+      <Movie key={m.id} movie={m} />
     </Grid>
   ));
-
-  return <>{movieCards}</>;
+  return movieCards;
 };
 
 export default MovieList;

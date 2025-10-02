@@ -10,14 +10,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid"; // ✅ classic Grid import
-import img from "../../images/film-poster-placeholder.png";
+import Grid from "@mui/material/Grid";
+import img from '../../images/film-poster-placeholder.png'
 
 export default function MovieCard(props) {
   const movie = props.movie;
   return (
     <Card>
-      <CardHeader title={movie.title} sx={{ textWrap: "nowrap" }} />
+      <CardHeader title={movie.title} sx={{ textWrap: "nowrap"}}/>
       <CardMedia
         sx={{ height: 500 }}
         image={
@@ -28,13 +28,13 @@ export default function MovieCard(props) {
       />
       <CardContent>
         <Grid container>
-          <Grid item xs={6}>
+          <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
@@ -53,3 +53,4 @@ export default function MovieCard(props) {
     </Card>
   );
 }
+

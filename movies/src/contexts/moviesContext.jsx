@@ -1,3 +1,4 @@
+import { add } from "lodash";
 import React, { useState } from "react";
 
 export const MoviesContext = React.createContext(null);
@@ -32,7 +33,15 @@ const MoviesContextProvider = (props) => {
     ) )
   };
 
-  
+const addToMustWatch = (movie) => {
+    setMustWatch((prev) => (prev.includes(movie.id) ? prev : [...prev, movie.id]));
+    console.log("Must Watch:", [...new Set([...mustWatch, movie.id])]); // confirm
+  };
+
+const removeFromMustWatch = (movie) => {
+    setMustWatch((prev) => prev.filter((id) => id !== movie.id));
+    console.log("Must Watch:", mustWatch.filter((id) => id !== movie.id)); // confirm
+};
 
    return (
     <MoviesContext.Provider
@@ -41,6 +50,9 @@ const MoviesContextProvider = (props) => {
         addToFavorites,
         removeFromFavorites,
         addReview,
+        addToMustWatch,
+        removeFromMustWatch,
+        mustWatch,
       }}
     >
       {props.children}

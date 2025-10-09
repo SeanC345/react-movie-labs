@@ -24,18 +24,23 @@ const upcomingMovies = () => {
   
   const movies = data.results;
 
-
-  return (
-  <PageTemplate
-    title="Upcoming Movies"
-    movies={movies}
-    action={(movie) => (
-      <IconButton aria-label="add to playlist">
+  const AddToPlaylist = ({ movie }) => {
+    const { addToMustWatch } = useContext(MoviesContext);
+    return (
+      <IconButton aria-label="add to playlist" onClick={() => addToMustWatch(movie)}>
         <PlaylistAddIcon />
       </IconButton>
-    )}
-  />
+    );
+  };
+  return (
+    <PageTemplate
+      title="Upcoming Movies"
+      movies={movies}
+      action={(movie) => <AddToPlaylist movie={movie} />}
+    />
   );
 }
 
 export default upcomingMovies;
+
+

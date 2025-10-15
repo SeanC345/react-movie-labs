@@ -76,6 +76,22 @@ const [drawerOpen, setDrawerOpen] = useState(false);
          </li>
         ))}
        </Paper>
+       <Paper component="ul" sx={{ ...root }}>
+        <li>
+          <Chip label="Cast" sx={{ ...chip }} color="primary" />
+          </li>
+          {(movie.credits?.cast ?? []).slice(0, 6).map((c) => (
+            <li key={c.cast_id || c.credit_id || c.id}>
+              <Chip
+              label={c.name}
+              sx={{ ...chip }}
+              component={RouterLink}
+              to={`/person/${c.id}`}
+              clickable
+              />
+            </li>
+          ))}
+          </Paper>
        <Stack direction='row' spacing={2} sx={{ mt:2 }}>  
         <Button variant = "contained" component={RouterLink} to={`/movies/${movie.id}/recommendations`}>
           Recommendations

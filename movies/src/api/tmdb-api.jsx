@@ -208,7 +208,8 @@ export const getSimilarMovies = ({ queryKey }) => {
 };
 
 export const getMovieCredits = ({ queryKey }) => {
-  const [, id] = queryKey;
+  const [, idPart] = queryKey;
+  const { id } = idPart;
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   ).then((response) => {
@@ -225,7 +226,8 @@ export const getMovieCredits = ({ queryKey }) => {
 };
 
 export const getPerson = ({ queryKey }) => {
-  const [, id] = queryKey;
+  const [, idPart] = queryKey;
+  const { id } = idPart;
   return fetch(
     `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   ).then((response) => {
@@ -242,7 +244,8 @@ export const getPerson = ({ queryKey }) => {
 };
 
 export const getPersonMovieCredits = ({ queryKey }) => {
-  const [, id] = queryKey;
+  const [, idPart] = queryKey;
+  const { id } = idPart;
   return fetch(
     `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   ).then((response) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Navigate, Routes } from "react-router";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
@@ -15,6 +15,8 @@ import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import PopularMovies from "./pages/popularMoviesPage";
 import TopRatedMovies from "./pages/topRatedPage";
 import NowPlayingMovies from "./pages/nowPlayingPage";  
+import RecommendationsPage from "./pages/recommendationsPage";
+import SimilarMoviesPage from "./pages/similarMoviesPage";
 
 
 
@@ -48,6 +50,8 @@ const App = () => {
           <Route path="/movies/popular" element={<PopularMovies />} />
           <Route path="/movies/top-rated" element={<TopRatedMovies />} />
           <Route path="/movies/now-playing" element={<NowPlayingMovies />} />
+          <Route path="/movies/:id/recommendations" element={<RecommendationsPage />} />
+          <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={ <Navigate to="/" /> } />
         </Routes>

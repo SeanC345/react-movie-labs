@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -26,11 +26,11 @@ const SiteHeader = () => {
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "Upcoming Movies", path: "/movies/upcoming" },
+    { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Trending", path: "/movies/trending/today" },
-    { label: "Popular Movies", path: "/movies/popular" },
-    { label: "Top Rated Movies", path: "/movies/top-rated" },
-    { label: "Now Playing Movies", path: "/movies/now-playing" },
+    { label: "Popular", path: "/movies/popular" },
+    { label: "Top Rated", path: "/movies/top-rated" },
+    { label: "Now Playing", path: "/movies/now-playing" },
   ];
 
   const handleMenuSelect = (pageURL) => {

@@ -50,9 +50,9 @@ const removeFromMustWatch = (movie) => {
         addToFavorites,
         removeFromFavorites,
         addReview,
+        mustWatch,
         addToMustWatch,
         removeFromMustWatch,
-        mustWatch,
       }}
     >
       {props.children}

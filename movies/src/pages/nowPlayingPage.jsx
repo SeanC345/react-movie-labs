@@ -6,6 +6,7 @@ import Spinner from "../components/spinner";
 import IconButton from "@mui/material/IconButton";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import { MoviesContext } from "../contexts/moviesContext";
+import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist";
 
 const NowPlayingMovies = () => {
 
@@ -36,7 +37,7 @@ const NowPlayingMovies = () => {
     <PageTemplate
       title="Now Playing Movies"
       movies={movies}
-      action={(movie) => <AddToPlaylist movie={movie} />}
+      action={(movie) => <AddToPlaylistIcon movie={movie} />}
     />
   );
 }

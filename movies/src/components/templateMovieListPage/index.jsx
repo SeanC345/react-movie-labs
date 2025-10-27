@@ -9,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const [sortOption, setSortOption] = useState("Popularity");
   const [minRating, setMinRating] = useState(0);
+  const [yearFilter, setYearFilter] = useState("All");
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -20,6 +21,30 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return minRating > 0 ? (m.vote_average || 0) >= minRating : true;
+    })
+    .filter((m) => {
+      if (yearFilter === "All") return true;
+      const year = m.release_date ? m.release_date.substring(0, 4) : "";
+      if (year === "") return false;
+      if (yearFilter === "2020s") {
+        return year >= "2020" && year <= "2029";
+      }
+      if (yearFilter === "2010s") {
+        return year >= "2010" && year <= "2019";
+      }
+      if (yearFilter === "2000s") {
+        return year >= "2000" && year <= "2009";
+      }
+      if (yearFilter === "1990s") {
+        return year >= "1990" && year <= "1999";
+      }
+      if (yearFilter === "1980s") {
+        return year >= "1980" && year <= "1989";
+      }
+      if (yearFilter === "1970s") {
+        return year >= "1970" && year <= "1979";
+      }
+      return true;
     });
 
     displayedMovies = displayedMovies.slice().sort((a, b) => {
@@ -37,6 +62,7 @@ function MovieListPageTemplate({ movies, title, action }) {
     else if (type === "genre") setGenreFilter(value);
     else if (type === "sort") setSortOption(value);
     else if (type === "minRating") setMinRating(value);
+    else if (type === "year") setYearFilter(value);
   };
 
   return (
@@ -56,6 +82,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             genreFilter={genreFilter}
             sortOption={sortOption}
             minRating={minRating}
+            yearFilter={yearFilter}
           />
         </Grid>
                 <MovieList action={action} movies={displayedMovies}></MovieList>

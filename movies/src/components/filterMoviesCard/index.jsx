@@ -63,6 +63,10 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "minRating", Number(e.target.value));
   };
 
+  const handleYearChange = (e) => {
+    handleChange(e, "year", e.target.value);
+  };
+
 
   return (
     <Card 
@@ -131,6 +135,24 @@ export default function FilterMoviesCard(props) {
             <MenuItem value={6}>6+</MenuItem>
             <MenuItem value={7}>7+</MenuItem>
             <MenuItem value={8}>8+</MenuItem>
+            </Select>
+        </FormControl>
+
+        <FormControl sx={{...formControl}}>
+          <InputLabel id="year-label">Release Year</InputLabel>
+            <Select
+            labelId="year-label"
+            id="year-select"
+            value={props.yearFilter}
+            onChange={handleYearChange}
+            >
+            <MenuItem value={"All"}>All Years</MenuItem>
+            <MenuItem value={"2020s"}>2020-2024</MenuItem>
+            <MenuItem value={"2010s"}>2010-2019</MenuItem>
+            <MenuItem value={"2000s"}>2000-2009</MenuItem>
+            <MenuItem value={"1990s"}>1990-1999</MenuItem>
+            <MenuItem value={"1980s"}>1980-1989</MenuItem>
+            <MenuItem value={"1970s"}>1970-1979</MenuItem>
             </Select>
         </FormControl>
       </CardContent>

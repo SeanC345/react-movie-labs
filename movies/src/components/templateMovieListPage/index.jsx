@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
+import { set } from "lodash";
 
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
@@ -10,6 +13,9 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [sortOption, setSortOption] = useState("Popularity");
   const [minRating, setMinRating] = useState(0);
   const [yearFilter, setYearFilter] = useState("All");
+
+  const [page, setPage] = useState(1);
+  const pageSize = 12;
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -57,7 +63,18 @@ function MovieListPageTemplate({ movies, title, action }) {
       return (b.popularity || 0) - (a.popularity || 0);
     });
 
+    const totalPages = Math.ceil(displayedMovies.length / pageSize);
+    const pagedMovies = displayedMovies.slice(
+      (page - 1) * pageSize,
+      page * pageSize
+    );
+
+    const handlePageChange = (event, value) => {
+      setPage(value);
+    };
+
   const handleChange = (type, value) => {
+    setPage(1);
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
     else if (type === "sort") setSortOption(value);
@@ -85,8 +102,23 @@ function MovieListPageTemplate({ movies, title, action }) {
             yearFilter={yearFilter}
           />
         </Grid>
-                <MovieList action={action} movies={displayedMovies}></MovieList>
-      </Grid>
+          <MovieList movies={pagedMovies} action={action} />
+
+          <Stack
+          direction="row"
+          justifyContent="center"
+          sx={{ padding: "20px" }}
+          >
+          <Pagination
+          count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            color="primary"
+            shape="rounded"
+            size="large"
+          />
+        </Stack>
+    </Grid>
     </Grid>
   );
 }

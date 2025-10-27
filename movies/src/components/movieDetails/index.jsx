@@ -29,77 +29,213 @@ const chip = { margin: 0.5 };
 const MovieDetails = ({ movie }) => {  
 const [drawerOpen, setDrawerOpen] = useState(false);
 
+const revenueLabel = 
+  movie.revenue !== undefined && movie.revenue !== null
+    ? `Revenue: $${movie.revenue.toLocaleString()}`
+    : "Revenue: N/A";
 
   return (
     <>
-      <Typography variant="h5" component="h3">
+      <Typography variant="h5" component="h3" sx={{ fontWeight: 600 }}>
         Overview
       </Typography>
 
-      <Typography variant="h6" component="p">
+      <Typography variant="h6" component="p" sx={{ marginBottom: 2 }}>
         {movie.overview}
       </Typography>
 
-      <Paper 
-        component="ul" 
-        sx={{...root}}
+      <Paper
+        component="ul"
+        sx={{
+          ...root,
+          mb: 2,
+          backgroundColor: "#1e293b",
+          color: "white",
+          borderRadius: 2,
+        }}
       >
         <li>
-          <Chip label="Genres" sx={{...chip}} color="primary" />
+          <Chip
+            label="Genres"
+            sx={{
+              ...chip,
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              fontWeight: 600,
+              "& .MuiChip-icon": { color: "#fff" },
+            }}
+          />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
-            <Chip label={g.name} sx={{...chip}} />
+            <Chip
+              label={g.name}
+              sx={{
+                ...chip,
+                backgroundColor: "#0f172a",
+                color: "#fff",
+                "& .MuiChip-icon": { color: "#fff" },
+              }}
+            />
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={{...root}}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+      <Paper
+        component="ul"
+        sx={{
+          ...root,
+          mb: 2,
+          backgroundColor: "#1e293b",
+          color: "white",
+          borderRadius: 2,
+        }}
+      >
         <Chip
-          icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
+          icon={<AccessTimeIcon sx={{ color: "#fff" }} />}
+          label={`${movie.runtime} min.`}
+          sx={{
+            ...chip,
+            backgroundColor: "#0f172a",
+            color: "#fff",
+            "& .MuiChip-icon": { color: "#fff" },
+          }}
         />
+
         <Chip
-          icon={<StarRate />}
+          icon={<MonetizationIcon sx={{ color: "#fff" }} />}
+          label={revenueLabel}
+          sx={{
+            ...chip,
+            backgroundColor: "#0f172a",
+            color: "#fff",
+            "& .MuiChip-icon": { color: "#fff" },
+          }}
+        />
+
+        <Chip
+          icon={<StarRate sx={{ color: "#fff" }} />}
           label={`${movie.vote_average} (${movie.vote_count})`}
+          sx={{
+            ...chip,
+            backgroundColor: "#0f172a",
+            color: "#fff",
+            "& .MuiChip-icon": { color: "#fff" },
+          }}
         />
-        <Chip icon={<LanguageIcon />} label={`Original Language: ${movie.original_language}`} />
-        <Chip label={`Released: ${movie.release_date}`} />
+
+        <Chip
+          icon={<LanguageIcon sx={{ color: "#fff" }} />}
+          label={`Original Language: ${movie.original_language}`}
+          sx={{
+            ...chip,
+            backgroundColor: "#0f172a",
+            color: "#fff",
+            "& .MuiChip-icon": { color: "#fff" },
+          }}
+        />
+
+        <Chip
+          label={`Released: ${movie.release_date}`}
+          sx={{
+            ...chip,
+            backgroundColor: "#0f172a",
+            color: "#fff",
+            "& .MuiChip-icon": { color: "#fff" },
+          }}
+        />
       </Paper>
-      <Paper component="ul" sx={{ ...root }}>
-       <li>
-         <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
-       </li>
-       {movie.production_countries?.map((c) => (
-         <li key={c.iso_3166_1 || c.name}>
-         <Chip label={c.name} sx={{ ...chip }} />
-         </li>
-        ))}
-       </Paper>
-       <Paper component="ul" sx={{ ...root }}>
+      <Paper
+        component="ul"
+        sx={{
+          ...root,
+          mb: 2,
+          backgroundColor: "#1e293b",
+          color: "white",
+          borderRadius: 2,
+        }}
+      >
         <li>
-          <Chip label="Cast" sx={{ ...chip }} color="primary" />
-          </li>
-          {(movie.credits?.cast ?? []).slice(0, 6).map((c) => (
-            <li key={c.cast_id || c.credit_id || c.id}>
-              <Chip
+          <Chip
+            label="Production Countries"
+            sx={{
+              ...chip,
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              fontWeight: 600,
+              "& .MuiChip-icon": { color: "#fff" },
+            }}
+          />
+        </li>
+        {movie.production_countries?.map((c) => (
+          <li key={c.iso_3166_1 || c.name}>
+            <Chip
               label={c.name}
-              sx={{ ...chip }}
+              sx={{
+                ...chip,
+                backgroundColor: "#0f172a",
+                color: "#fff",
+                "& .MuiChip-icon": { color: "#fff" },
+              }}
+            />
+          </li>
+        ))}
+      </Paper>
+       <Paper
+        component="ul"
+        sx={{
+          ...root,
+          mb: 2,
+          backgroundColor: "#1e293b",
+          color: "white",
+          borderRadius: 2,
+        }}
+      >
+        <li>
+          <Chip
+            label="Cast"
+            sx={{
+              ...chip,
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              fontWeight: 600,
+              "& .MuiChip-icon": { color: "#fff" },
+            }}
+          />
+        </li>
+
+        {(movie.credits?.cast ?? []).slice(0, 6).map((c) => (
+          <li key={c.cast_id || c.credit_id || c.id}>
+            <Chip
+              label={c.name}
               component={RouterLink}
               to={`/person/${c.id}`}
               clickable
-              />
-            </li>
-          ))}
-          </Paper>
-       <Stack direction='row' spacing={2} sx={{ mt:2 }}>  
-        <Button variant = "contained" component={RouterLink} to={`/movies/${movie.id}/recommendations`}>
+              sx={{
+                ...chip,
+                backgroundColor: "#0f172a",
+                color: "#fff",
+                "& .MuiChip-icon": { color: "#fff" },
+              }}
+            />
+          </li>
+        ))}
+      </Paper>
+       <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 6 }}>
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to={`/movies/${movie.id}/recommendations`}
+        >
           Recommendations
         </Button>
-        <Button variant="contained" component={RouterLink} to={`/movies/${movie.id}/similar`}>
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to={`/movies/${movie.id}/similar`}
+        >
           Similar Movies
         </Button>
-       </Stack>
+      </Stack>
             <Fab
         color="secondary"
         variant="extended"

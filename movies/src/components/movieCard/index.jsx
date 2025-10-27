@@ -39,8 +39,17 @@ export default function MovieCard({ movie, action }) {
 
 
   return (
-    <Card>
-        <CardHeader
+    <Card
+      sx={{
+        backgroundColor: "background.paper",
+        borderRadius: 3,
+        boxShadow: 4,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CardHeader
         avatar={
         movie.favorite ? (
         <Avatar sx={{ backgroundColor: 'red' }}>
@@ -59,31 +68,41 @@ export default function MovieCard({ movie, action }) {
       />
 
       <CardMedia
-        sx={{ height: 500 }}
+        sx={{ 
+          height: 500,
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          objectFit: "cover"
+         }}
         image={
           movie.poster_path
             ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
             : img
         }
       />
-      <CardContent>
+      <CardContent sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
-              {movie.release_date}
+            <Typography variant="h6" component="p" sx={{ fontWeight: 500 }}>
+              <CalendarIcon fontSize="small" /> {movie.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+            <Typography variant="h6" component="p" sx={{ fontWeight: 500 }}>
+              <StarRateIcon fontSize="small" /> {movie.vote_average}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
-            <CardActions disableSpacing>
-      
+      <CardActions
+        disableSpacing
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingX: 2,
+          paddingBottom: 2,
+        }}
+      >
         {action(movie)}
       
         <Link to={`/movies/${movie.id}`}>

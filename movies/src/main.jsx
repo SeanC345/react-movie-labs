@@ -9,6 +9,8 @@ import SiteHeader from './components/siteHeader';
 import TrendingPage from "./pages/trendingPage";
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import theme from './themes/theme';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
@@ -39,6 +41,8 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
       <BrowserRouter>
         <SiteHeader />
         <MoviesContextProvider>
@@ -62,6 +66,7 @@ const App = () => {
         </MoviesContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

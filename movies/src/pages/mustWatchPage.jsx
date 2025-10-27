@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "@tanstack/react-query";
@@ -6,10 +6,22 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromPlaylist from "../components/cardIcons/removeFromPlaylist";
 import WriteReview from "../components/cardIcons/writeReview";
-import { get } from "lodash";
+import Snackbar from "@mui/material/Snackbar";
 
 const MustWatchPage = () => {
     const { mustWatch: movieIds } = useContext(MoviesContext);
+
+    const [openSnack, setOpenSnack] = useState(false);
+    const [snackMessage, setSnackMessage] = useState("");
+
+    const showSnack = (msg) => {
+        setSnackMessage(msg);
+        setOpenSnack(true);
+    };
+
+    const handleClose = () => {
+        setOpenSnack(false);
+    };
 
     const results = useQueries({
         queries: movieIds.map((id) => ({
@@ -32,16 +44,25 @@ const MustWatchPage = () => {
     }));
 
     return (
+        <>
         <PageTemplate
             title="Must Watch"
             movies={movies}
             action={(movie) => (
                 <>
-                    <RemoveFromPlaylist movie={movie} />
+                    <RemoveFromPlaylist movie={movie} showSnack={showSnack} />
                     <WriteReview movie={movie} />
                 </>
             )}
         />
+        <Snackbar
+            open={openSnack}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            message={snackMessage}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        />
+        </>
     );
 };
 

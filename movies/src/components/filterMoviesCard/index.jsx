@@ -59,6 +59,10 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "sort", e.target.value);
   };
 
+  const handleMinRatingChange = (e) => {
+    handleChange(e, "minRating", Number(e.target.value));
+  };
+
 
   return (
     <Card 
@@ -113,6 +117,21 @@ export default function FilterMoviesCard(props) {
             <MenuItem value="Rating">Rating</MenuItem>
             <MenuItem value="Release Date">Release Date</MenuItem>
           </Select>
+        </FormControl>
+        <FormControl sx={{...formControl}}>
+          <InputLabel id="rating-label">Minimum Rating</InputLabel>
+            <Select
+            labelId="rating-label"
+            id="rating-select"
+            value={props.minRating}
+            onChange={handleMinRatingChange}
+            >
+            <MenuItem value={0}>All Ratings</MenuItem>
+            <MenuItem value={5}>5+</MenuItem>
+            <MenuItem value={6}>6+</MenuItem>
+            <MenuItem value={7}>7+</MenuItem>
+            <MenuItem value={8}>8+</MenuItem>
+            </Select>
         </FormControl>
       </CardContent>
       <CardMedia

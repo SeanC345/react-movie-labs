@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from "@mui/material/Typography";
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 const PersonPage = () => {
     const { id } = useParams();
@@ -43,50 +43,113 @@ const PersonPage = () => {
     `https://image.tmdb.org/t/p/w500${person.profile_path}`
      : null;
 
-    const movies = credits?.cast ?? [];
+    const movies = credits.cast || [];
     
     return(
-        <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
-          <Grid container spacing={2} sx={{ mb: 2 }}>
-            <Grid item xs={12} sm="auto">
-              {profileUrl && (
-                <Card sx={{ maxWidth: 220 }}>
-              <CardMedia component="img" image={profileUrl} alt={person.name} />
+      <>
+        <Box
+      sx={{
+        px: 2,
+        pt: 2,
+        pb: 3,
+        bgcolor: "background.default",
+      }}
+    >
+      <Grid
+        container
+        spacing={2}
+        alignItems="flex-start"
+      >
+       
+        <Grid item xs={12} sm={4} md={3} lg={2.5}>
+          {profileUrl && (
+            <Card
+              sx={{
+                bgcolor: "background.paper",
+                borderRadius: 2,
+                boxShadow: 6,
+                overflow: "hidden",
+              }}
+            >
+              <CardMedia
+                component="img"
+                image={profileUrl}
+                alt={person.name}
+                sx={{
+                  display: "block",
+                  width: "100%",
+                  height: "auto",
+                }}
+              />
             </Card>
           )}
         </Grid>
-        <Grid item xs>
-          <Card>
-            <CardContent>
-              <Typography variant="h4" gutterBottom>
+
+        
+        <Grid item xs={12} sm={8} md={9} lg={6}>
+          <Card
+            sx={{
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              boxShadow: 6,
+              color: "text.primary",
+              minWidth: 0,
+            }}
+          >
+            <CardContent sx={{ p: 2 }}>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ color: "text.primary", fontWeight: 600, lineHeight: 1.3 }}
+              >
                 {person.name}
               </Typography>
+
               {person.known_for_department && (
-                <Typography variant="subtitle1">
+                <Typography
+                  variant="subtitle2"
+                  sx={{ color: "text.secondary", mb: 1 }}
+                >
                   {person.known_for_department}
                 </Typography>
               )}
+
               {person.place_of_birth && (
-                <Typography variant="body2">
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                >
                   From: {person.place_of_birth}
                 </Typography>
               )}
+
               {person.birthday && (
-                <Typography variant="body2">Born: {person.birthday}</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                >
+                  Born: {person.birthday}
+                </Typography>
               )}
+
               {person.deathday && (
-                <Typography variant="body2">Died: {person.deathday}</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                >
+                  Died: {person.deathday}
+                </Typography>
               )}
             </CardContent>
           </Card>
         </Grid>
       </Grid>
+    </Box>
      <PageTemplate
         title="Filmography"
         movies={movies}
-        action={(movie) => <AddToFavoritesIcon movie={movie} />}
-      />
-    </Container>
+        action={(movie) => <AddToFavoritesIcon movie={movie} showSnackbar={true} />} />
+    </>
   );
 };
 
